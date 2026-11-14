@@ -48,5 +48,3 @@ Want to explore the lab locally?
    ```
 
 ---
-
-*NOTE: java tea🍵 in always available* 
