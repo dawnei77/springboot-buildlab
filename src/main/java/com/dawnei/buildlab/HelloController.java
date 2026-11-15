@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     
     private final StudentService studentService;
+    private final GreetingService greetingService; 
 
-    public HelloController(StudentService studentService) {
+    // constructor injection
+    public HelloController(StudentService studentService, GreetingService greetingService) {
         this.studentService = studentService;
+        this.greetingService = greetingService; // custom build bean
     }
 
 
@@ -44,7 +47,7 @@ public class HelloController {
 
     @PostMapping ("/students") // http POST request to the URL/students will be handled by this method
     public Student student(@RequestBody Student student) {
-        //@RequestBody fetch JSON file and deserialize (JSON to obj of Student class) represented by variable student
+        //@RequestBody fetch JSON file and deserialize (JSON to obj of Student class) represented by variable student (does not need new keyword when deserializing)
         
         return studentService.prepareStudent(student); //return the student object after processing it in the service class (returns finally as JSON)
 
@@ -62,5 +65,10 @@ public class HelloController {
             -ContentType "application/json" `
             -Body $body
         */
+    }
+
+    @GetMapping ("/greet")
+    public String greet() {
+        return greetingService.greet(); // greet() of bean object greetingService
     }
 }
